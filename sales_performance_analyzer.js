@@ -5,7 +5,7 @@ function calculateAverageSales(sales) {
     return total / sales.length; 
 }
 
-// Create a Function to Determine Performance Rating
+// 2. Create a Function to Determine Performance Rating
 function determinePerformanceRating(averageSales) {
     if (averageSales > 10000) {
         return "Excellent";
@@ -16,4 +16,20 @@ function determinePerformanceRating(averageSales) {
     } else {
         return "Needs Improvement";
     }
+}
+
+// 3. Create a Function to Identify Top and Bottom Performers
+function findTopAndBottomPerformers(salesperson) {
+    if (salesperson.length === 0) return {topPerformer: null, bottomPerformer: null };
+
+    return salesperson.reduce((acc, person) => {
+        const totalSales = person.sales.reduce((sum, sale) => sum + sale, 0);
+        if (!acc.topPerformer || totalSales > acc.topPerformer.totalSales) {
+            acc.topPerformer = { name: person.name, totalSales };
+        }
+        if (!acc.bottomPerformer || totalSales < acc.bottomPerformer.totalSales) {
+            acc.bottomPerformer = {name: person.name, totalSales };
+        }
+        return acc;
+    }, {topPerformer: null, bottomPerformer: null});
 }
